@@ -26,8 +26,8 @@ Use `maven-dependency-plugin` to fetch the agent JAR and add the path to the dow
 ```xml
 <project>
   <properties>
-    <alpn.agent.version>1.0.0.Final</alpn.agent.version>
-    <alpn.agent.path>${settings.localRepository}/kr/motd/javaagent/jetty-alpn-agent/${alpn.agent.version}/jetty-alpn-agent-${alpn.agent.version}.jar</alpn.agent.path>
+    <jetty.alpnAgent.version>1.0.0.Final</jetty.alpnAgent.version>
+    <jetty.alpnAgent.path>${settings.localRepository}/kr/motd/javaagent/jetty-alpn-agent/${jetty.alpnAgent.version}/jetty-alpn-agent-${jetty.alpnAgent.version}.jar</jetty.alpnAgent.path>
   </properties>
   
   <build>
@@ -45,7 +45,7 @@ Use `maven-dependency-plugin` to fetch the agent JAR and add the path to the dow
             <configuration>
               <groupId>kr.motd.javaagent</groupId>
               <artifactId>jetty-alpn-agent</artifactId>
-              <version>${alpn.agent.version}</version>
+              <version>${jetty.alpnAgent.version}</version>
             </configuration>
           </execution>
         </executions>
@@ -54,7 +54,7 @@ Use `maven-dependency-plugin` to fetch the agent JAR and add the path to the dow
         <artifactId>maven-surefire-plugin</artifactId>
         <version>2.19.1</version>
         <configuration>
-          <argLine>-javaagent:${alpn.agent.path}</argLine>
+          <argLine>-javaagent:${jetty.alpnAgent.path}</argLine>
         </configuration>
       </plugin>
     </plugins>
