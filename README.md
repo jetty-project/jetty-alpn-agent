@@ -61,3 +61,12 @@ Use `maven-dependency-plugin` to fetch the agent JAR and add the path to the dow
   </build>
 </project>
 ```
+
+## Legal stuff
+
+This product is licensed under [Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0).
+
+This product redistributes the original `alpn-boot` and `npn-boot` JARs, which are licensed under [GPLv2 with classpath exception](http://openjdk.java.net/legal/gplv2+ce.html), whose source code is located at:
+
+- https://github.com/jetty-project/jetty-alpn/
+- https://github.com/jetty-project/jetty-npn/
