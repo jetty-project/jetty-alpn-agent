@@ -1,0 +1,112 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>org.sonatype.oss</groupId>
+    <artifactId>oss-parent</artifactId>
+    <version>9</version>
+  </parent>
+
+  <groupId>kr.motd.javaagent</groupId>
+  <artifactId>jetty-alpn-agent</artifactId>
+  <version>1.0.0.Final-SNAPSHOT</version>
+  <packaging>jar</packaging>
+  <name>Jetty ALPN/NPN agent</name>
+  <description>Enables Jetty ALPN/NPN support via -javaagent JVM option</description>
+  <url>https://github.com/trustin/jetty-alpn-agent</url>
+
+  <organization>
+    <name>Trustin Heuiseung Lee</name>
+    <url>http://t.motd.kr/</url>
+  </organization>
+
+  <licenses>
+    <license>
+      <name>Apache License, Version 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0</url>
+    </license>
+  </licenses>
+  <inceptionYear>2015</inceptionYear>
+
+  <scm>
+    <url>${project.url}</url>
+    <connection>scm:git:https://github.com/trustin/jetty-alpn-agent.git</connection>
+    <developerConnection>scm:git:ssh://git@github.com/trustin/jetty-alpn-agent.git</developerConnection>
+    <tag>HEAD</tag>
+  </scm>
+
+  <developers>
+    <developer>
+      <id>trustin</id>
+      <name>Trustin Heuiseung Lee</name>
+      <email>t@motd.kr</email>
+      <url>http://t.motd.kr/</url>
+      <organization>Trustin Heuiseung Lee</organization>
+      <organizationUrl>http://t.motd.kr/</organizationUrl>
+    </developer>
+  </developers>
+
+  <properties>
+    <!-- Project options -->
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+    <!-- Compiler options -->
+    <maven.compiler.source>1.7</maven.compiler.source>
+    <maven.compiler.target>1.7</maven.compiler.target>
+    <maven.compiler.fork>true</maven.compiler.fork>
+    <maven.compiler.debug>true</maven.compiler.debug>
+    <maven.compiler.optimize>true</maven.compiler.optimize>
+    <maven.compiler.showDeprecation>true</maven.compiler.showDeprecation>
+    <maven.compiler.showWarnings>true</maven.compiler.showWarnings>
+  </properties>
+
+  <build>
+    <plugins>
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.3</version>
+      </plugin>
+      <plugin>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>2.6</version>
+        <configuration>
+          <archive>
+            <manifestEntries>
+              <Premain-Class>kr.motd.javaagent.jettyalpn.Premain</Premain-Class>
+            </manifestEntries>
+          </archive>
+        </configuration>
+      </plugin>
+      <plugin>
+        <artifactId>maven-deploy-plugin</artifactId>
+        <version>2.8.2</version>
+        <configuration>
+          <retryFailedDeploymentCount>10</retryFailedDeploymentCount>
+        </configuration>
+      </plugin>
+      <plugin>
+        <artifactId>maven-release-plugin</artifactId>
+        <version>2.4.2</version>
+        <configuration>
+          <useReleaseProfile>false</useReleaseProfile>
+          <arguments>-P sonatype-oss-release</arguments>
+          <autoVersionSubmodules>true</autoVersionSubmodules>
+          <allowTimestampedSnapshots>false</allowTimestampedSnapshots>
+          <tagNameFormat>@{project.artifactId}-@{project.version}</tagNameFormat>
+        </configuration>
+        <dependencies>
+          <dependency>
+            <groupId>org.apache.maven.scm</groupId>
+            <artifactId>maven-scm-api</artifactId>
+            <version>1.8.1</version>
+          </dependency>
+          <dependency>
+            <groupId>org.apache.maven.scm</groupId>
+            <artifactId>maven-scm-provider-gitexe</artifactId>
+            <version>1.8.1</version>
+          </dependency>
+        </dependencies>
+      </plugin>
+    </plugins>
+  </build>
+</project>
