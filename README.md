@@ -1,9 +1,6 @@
 # jetty-alpn-agent
 
-`jetty-alpn-agent` is a JVM agent that enables Jetty ALPN (or NPN) support for Java 7 and 8 by loading the correct `alpn-boot` (or `npn-boot`) JAR file for the current Java version. For more information, please refer to the following resources:
-
-- Jetty documentation: [ALPN](http://www.eclipse.org/jetty/documentation/9.3.0.v20150612/alpn-chapter.html) and [NPN](http://www.eclipse.org/jetty/documentation/9.2.10.v20150310/npn-chapter.html)
-- Java API documentation: [`java.lang.instrument`](https://docs.oracle.com/javase/8/docs/api/java/lang/instrument/package-summary.html)
+`jetty-alpn-agent` is a JVM agent that enables TLS ALPN (or NPN) extension support for Java 7 and 8 by loading the correct Jetty `alpn-boot` (or `npn-boot`) JAR file for the current Java version. 
 
 ## Usage
 
@@ -61,6 +58,13 @@ Use `maven-dependency-plugin` to fetch the agent JAR and add the path to the dow
   </build>
 </project>
 ```
+
+## Additional resources
+
+For more information, please refer to the following resources:
+
+- Jetty documentation: [ALPN](http://www.eclipse.org/jetty/documentation/9.3.0.v20150612/alpn-chapter.html) and [NPN](http://www.eclipse.org/jetty/documentation/9.2.10.v20150310/npn-chapter.html)
+- Java API documentation: [`java.lang.instrument`](https://docs.oracle.com/javase/8/docs/api/java/lang/instrument/package-summary.html)
 
 ## Legal stuff
 
