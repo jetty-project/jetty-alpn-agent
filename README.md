@@ -23,7 +23,7 @@ Use `maven-dependency-plugin` to fetch the agent JAR and add the path to the dow
 ```xml
 <project>
   <properties>
-    <jetty.alpnAgent.version>1.0.0.Final</jetty.alpnAgent.version>
+    <jetty.alpnAgent.version>1.0.1.Final</jetty.alpnAgent.version>
     <jetty.alpnAgent.path>${settings.localRepository}/kr/motd/javaagent/jetty-alpn-agent/${jetty.alpnAgent.version}/jetty-alpn-agent-${jetty.alpnAgent.version}.jar</jetty.alpnAgent.path>
   </properties>
   
