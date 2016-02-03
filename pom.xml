@@ -8,7 +8,7 @@
 
   <groupId>kr.motd.javaagent</groupId>
   <artifactId>jetty-alpn-agent</artifactId>
-  <version>1.0.1.Final</version>
+  <version>1.0.2.Final-SNAPSHOT</version>
   <packaging>jar</packaging>
   <name>Jetty ALPN/NPN agent</name>
   <description>Enables Jetty ALPN/NPN support via -javaagent JVM option</description>
@@ -31,7 +31,7 @@
     <url>${project.url}</url>
     <connection>scm:git:https://github.com/trustin/jetty-alpn-agent.git</connection>
     <developerConnection>scm:git:ssh://git@github.com/trustin/jetty-alpn-agent.git</developerConnection>
-    <tag>jetty-alpn-agent-1.0.1.Final</tag>
+    <tag>HEAD</tag>
   </scm>
 
   <developers>
