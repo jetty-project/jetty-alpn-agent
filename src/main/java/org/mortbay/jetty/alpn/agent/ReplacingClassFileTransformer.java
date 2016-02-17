@@ -13,9 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package kr.motd.javaagent.jettyalpn;
-
-import static kr.motd.javaagent.jettyalpn.Util.log;
+package org.mortbay.jetty.alpn.agent;
 
 import java.lang.instrument.ClassFileTransformer;
 import java.security.ProtectionDomain;
@@ -39,7 +37,7 @@ final class ReplacingClassFileTransformer implements ClassFileTransformer {
             return null;
         }
 
-        log("Replacing: " + className);
+        Util.log("Replacing: " + className);
         return content.clone();
     }
 }

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package kr.motd.javaagent.jettyalpn;
+package org.mortbay.jetty.alpn.agent;
 
 final class Util {
 

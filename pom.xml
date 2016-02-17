@@ -1,23 +1,21 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <parent>
-    <groupId>org.sonatype.oss</groupId>
-    <artifactId>oss-parent</artifactId>
-    <version>9</version>
+    <groupId>org.eclipse.jetty</groupId>
+    <artifactId>jetty-parent</artifactId>
+    <version>25</version>
   </parent>
 
-  <groupId>kr.motd.javaagent</groupId>
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.mortbay.jetty.alpn</groupId>
   <artifactId>jetty-alpn-agent</artifactId>
-  <version>1.0.2.Final-SNAPSHOT</version>
+  <version>2.0.0-SNAPSHOT</version>
   <packaging>jar</packaging>
-  <name>Jetty ALPN/NPN agent</name>
+  <name>Jetty ALPN/NPN Agent</name>
   <description>Enables Jetty ALPN/NPN support via -javaagent JVM option</description>
-  <url>https://github.com/trustin/jetty-alpn-agent</url>
-
-  <organization>
-    <name>Trustin Heuiseung Lee</name>
-    <url>http://t.motd.kr/</url>
-  </organization>
+  <url>https://github.com/jetty-project/jetty-alpn-agent</url>
 
   <licenses>
     <license>
@@ -25,14 +23,20 @@
       <url>http://www.apache.org/licenses/LICENSE-2.0</url>
     </license>
   </licenses>
+
   <inceptionYear>2015</inceptionYear>
 
   <scm>
     <url>${project.url}</url>
-    <connection>scm:git:https://github.com/trustin/jetty-alpn-agent.git</connection>
-    <developerConnection>scm:git:ssh://git@github.com/trustin/jetty-alpn-agent.git</developerConnection>
+    <connection>scm:git:https://github.com/jetty-project/jetty-alpn-agent.git</connection>
+    <developerConnection>scm:git:ssh://git@github.com/jetty-project/jetty-alpn-agent.git</developerConnection>
     <tag>HEAD</tag>
   </scm>
+
+  <issueManagement>
+    <system>github</system>
+    <url>https://github.com/jetty-project/jetty-alpn-agent/issues</url>
+  </issueManagement>
 
   <developers>
     <developer>
@@ -42,6 +46,11 @@
       <url>http://t.motd.kr/</url>
       <organization>Trustin Heuiseung Lee</organization>
       <organizationUrl>http://t.motd.kr/</organizationUrl>
+    </developer>
+    <developer>
+      <id>sbordet</id>
+      <name>Simone Bordet</name>
+      <email>simone.bordet@gmail.com</email>
     </developer>
   </developers>
 
@@ -72,7 +81,7 @@
         <configuration>
           <archive>
             <manifestEntries>
-              <Premain-Class>kr.motd.javaagent.jettyalpn.Premain</Premain-Class>
+              <Premain-Class>org.mortbay.jetty.alpn.agent.Premain</Premain-Class>
             </manifestEntries>
           </archive>
         </configuration>
@@ -86,27 +95,9 @@
       </plugin>
       <plugin>
         <artifactId>maven-release-plugin</artifactId>
-        <version>2.4.2</version>
-        <configuration>
-          <useReleaseProfile>false</useReleaseProfile>
-          <arguments>-P sonatype-oss-release</arguments>
-          <autoVersionSubmodules>true</autoVersionSubmodules>
-          <allowTimestampedSnapshots>false</allowTimestampedSnapshots>
-          <tagNameFormat>@{project.artifactId}-@{project.version}</tagNameFormat>
-        </configuration>
-        <dependencies>
-          <dependency>
-            <groupId>org.apache.maven.scm</groupId>
-            <artifactId>maven-scm-api</artifactId>
-            <version>1.8.1</version>
-          </dependency>
-          <dependency>
-            <groupId>org.apache.maven.scm</groupId>
-            <artifactId>maven-scm-provider-gitexe</artifactId>
-            <version>1.8.1</version>
-          </dependency>
-        </dependencies>
+        <version>2.5.2</version>
       </plugin>
     </plugins>
   </build>
+
 </project>

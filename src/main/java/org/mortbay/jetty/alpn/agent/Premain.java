@@ -13,9 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package kr.motd.javaagent.jettyalpn;
-
-import static kr.motd.javaagent.jettyalpn.Util.log;
+package org.mortbay.jetty.alpn.agent;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -78,7 +76,7 @@ public final class Premain {
         final String javaVersion = System.getProperty("java.version", "");
         final String artifactVersion = findArtifactVersion(mappings);
         if (artifactVersion == null) {
-            log("Could not find a matching " + artifactName + " JAR for Java version: " + javaVersion);
+            Util.log("Could not find a matching " + artifactName + " JAR for Java version: " + javaVersion);
             return;
         }
 
@@ -86,11 +84,11 @@ public final class Premain {
         final String artifactFileName = artifactName + '-' + artifactVersion + ".jar";
         final URL artifactUrl = Premain.class.getResource(artifactFileName);
         if (artifactUrl == null) {
-            log("Could not find a JAR file: " + artifactFileName);
+            Util.log("Could not find a JAR file: " + artifactFileName);
             return;
         }
 
-        log("Using: " + artifactFileName);
+        Util.log("Using: " + artifactFileName);
         configureBootstrapClassLoaderSearch(inst, artifactUrl, artifactName, artifactVersion);
         configureClassFileTransformer(inst, artifactUrl);
     }

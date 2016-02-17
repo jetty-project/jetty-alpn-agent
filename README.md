@@ -1,6 +1,8 @@
-# jetty-alpn-agent
+# Jetty ALPN Agent
 
-`jetty-alpn-agent` is a JVM agent that enables TLS ALPN (or NPN) extension support for Java 7 and 8 by loading the correct Jetty `alpn-boot` (or `npn-boot`) JAR file for the current Java version. 
+`jetty-alpn-agent` is a JVM agent that enables TLS ALPN (or NPN) extension 
+support for Java 7 and 8 by loading the correct Jetty `alpn-boot` 
+(or `npn-boot`) JAR file for the current Java version. 
 
 ## Usage
 
@@ -18,13 +20,14 @@ java -javaagent:<path/to/jetty-alpn-agent.jar=forceNpn=true ...
 
 ## Using with Maven
 
-Use `maven-dependency-plugin` to fetch the agent JAR and add the path to the downloaded agent JAR to the command line arguments:
+Use `maven-dependency-plugin` to fetch the agent JAR and add the path to 
+the downloaded agent JAR to the command line arguments:
 
 ```xml
 <project>
   <properties>
-    <jetty.alpnAgent.version>1.0.1.Final</jetty.alpnAgent.version>
-    <jetty.alpnAgent.path>${settings.localRepository}/kr/motd/javaagent/jetty-alpn-agent/${jetty.alpnAgent.version}/jetty-alpn-agent-${jetty.alpnAgent.version}.jar</jetty.alpnAgent.path>
+    <jetty.alpnAgent.version>2.0.0</jetty.alpnAgent.version>
+    <jetty.alpnAgent.path>${settings.localRepository}/org/mortbay/jetty/alpn/jetty-alpn-agent/${jetty.alpnAgent.version}/jetty-alpn-agent-${jetty.alpnAgent.version}.jar</jetty.alpnAgent.path>
   </properties>
   
   <build>
@@ -40,7 +43,7 @@ Use `maven-dependency-plugin` to fetch the agent JAR and add the path to the dow
               <goal>get</goal>
             </goals>
             <configuration>
-              <groupId>kr.motd.javaagent</groupId>
+              <groupId>org.mortbay.jetty.alpn</groupId>
               <artifactId>jetty-alpn-agent</artifactId>
               <version>${jetty.alpnAgent.version}</version>
             </configuration>
@@ -63,10 +66,11 @@ Use `maven-dependency-plugin` to fetch the agent JAR and add the path to the dow
 
 For more information, please refer to the following resources:
 
-- Jetty documentation: [ALPN](http://www.eclipse.org/jetty/documentation/9.3.0.v20150612/alpn-chapter.html) and [NPN](http://www.eclipse.org/jetty/documentation/9.2.10.v20150310/npn-chapter.html)
+- Jetty documentation: [ALPN](http://eclipse.org/jetty/documentation/current/alpn-chapter.html) 
+and [NPN](http://eclipse.org/jetty/documentation/9.2.10.v20150310/npn-chapter.html)
 - Java API documentation: [`java.lang.instrument`](https://docs.oracle.com/javase/8/docs/api/java/lang/instrument/package-summary.html)
 
-## Legal stuff
+## Legal
 
 This product is licensed under [Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0).
 
@@ -74,3 +78,9 @@ This product redistributes the original `alpn-boot` and `npn-boot` JARs, which a
 
 - https://github.com/jetty-project/jetty-alpn/
 - https://github.com/jetty-project/jetty-npn/
+
+## Credits
+
+This library has been initially created by [Trustin Lee](https://github.com/trustin/).
+The Jetty Project took ownership in February 2016.
+Version 2.0.0 was the first release under the Jetty Project stewardship.
