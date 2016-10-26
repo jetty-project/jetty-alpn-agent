@@ -9,7 +9,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.mortbay.jetty.alpn</groupId>
   <artifactId>jetty-alpn-agent</artifactId>
-  <version>2.0.5-SNAPSHOT</version>
+  <version>2.0.5</version>
   <packaging>jar</packaging>
   <name>Jetty ALPN/NPN Agent</name>
   <description>Enables Jetty ALPN/NPN support via -javaagent JVM option</description>
@@ -28,7 +28,7 @@
     <url>${project.url}</url>
     <connection>scm:git:https://github.com/jetty-project/jetty-alpn-agent.git</connection>
     <developerConnection>scm:git:ssh://git@github.com/jetty-project/jetty-alpn-agent.git</developerConnection>
-    <tag>HEAD</tag>
+    <tag>jetty-alpn-agent-2.0.5</tag>
   </scm>
 
   <issueManagement>
