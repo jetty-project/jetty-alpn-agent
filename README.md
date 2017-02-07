@@ -67,7 +67,7 @@ the downloaded agent JAR to the command line arguments:
 For more information, please refer to the following resources:
 
 - Jetty documentation: [ALPN](http://eclipse.org/jetty/documentation/current/alpn-chapter.html) 
-and [NPN](http://eclipse.org/jetty/documentation/9.2.10.v20150310/npn-chapter.html)
+and [NPN](http://www.eclipse.org/jetty/documentation/9.2.21.v20170120/npn-chapter.html)
 - Java API documentation: [`java.lang.instrument`](https://docs.oracle.com/javase/8/docs/api/java/lang/instrument/package-summary.html)
 
 ## Legal
