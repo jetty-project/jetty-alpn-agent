@@ -34,7 +34,7 @@ final class ReplacingClassFileTransformer implements ClassFileTransformer {
             return null;
         }
 
-        Util.log("Replacing: " + className);
+        Util.debug("Replacing: " + className);
         return content.clone();
     }
 }

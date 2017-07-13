@@ -60,25 +60,26 @@ public final class Premain {
             new VersionMapping("1.0.0.v20120402", 1, 7, 0, 0)
     };
 
-    public static void premain(String args, Instrumentation inst) throws Exception {
-        final String artifactName;
-        final VersionMapping[] mappings;
+    public static void premain(String options, Instrumentation inst) throws Exception {
+        String artifactName = "alpn-boot";
+        VersionMapping[] mappings = ALPN_MAPPINGS;
 
-        // Use NPN version mappings if a user specified 'forceNpn=true'.
-        // Note that we do a simple string comparison because this agent has only a single option.
-        if ("forceNpn=true".equals(args)) {
-            artifactName = "npn-boot";
-            mappings = NPN_MAPPINGS;
-        } else {
-            artifactName = "alpn-boot";
-            mappings = ALPN_MAPPINGS;
+        String[] args = options == null ? new String[0] : options.split(",");
+        for (String arg : args) {
+            arg = arg.trim();
+            if (arg.equals("forceNpn=true")) {
+                artifactName = "npn-boot";
+                mappings = NPN_MAPPINGS;
+            } else if (arg.equals("debug=true")) {
+                Util.debug = true;
+            }
         }
 
         // Find the matching alpn/npn-boot version.
         final String artifactVersion = findArtifactVersion(mappings);
         if (artifactVersion == null) {
             final String javaVersion = System.getProperty("java.version", "");
-            Util.log("Could not find a matching " + artifactName + " JAR for Java version: " + javaVersion);
+            Util.warn("Could not find a matching " + artifactName + " JAR for Java version: " + javaVersion);
             return;
         }
 
@@ -86,11 +87,11 @@ public final class Premain {
         final String artifactFileName = artifactName + '-' + artifactVersion + ".jar";
         final URL artifactUrl = Premain.class.getResource(artifactFileName);
         if (artifactUrl == null) {
-            Util.log("Could not find a JAR file: " + artifactFileName);
+            Util.warn("Could not find a JAR file: " + artifactFileName);
             return;
         }
 
-        Util.log("Using: " + artifactFileName);
+        Util.debug("Using: " + artifactFileName);
         configureBootstrapClassLoaderSearch(inst, artifactUrl, artifactName, artifactVersion);
         configureClassFileTransformer(inst, artifactUrl);
     }

@@ -30,7 +30,7 @@ final class JavaVersion {
         final Matcher m = VERSION_PATTERN.matcher(versionStr);
 
         if (!m.matches()) {
-            Util.log("Could not parse java.version: " + versionStr);
+            Util.warn("Could not parse java.version: " + versionStr);
             major = 0;
             minor = 0;
             micro = 0;

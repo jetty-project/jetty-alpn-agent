@@ -15,7 +15,13 @@ java -javaagent:<path/to/jetty-alpn-agent.jar> ...
 To use NPN instead of ALPN, specify the `forceNpn=true` option:
 
 ```bash
-java -javaagent:<path/to/jetty-alpn-agent.jar=forceNpn=true ...
+java -javaagent:<path/to/jetty-alpn-agent.jar>=forceNpn=true ...
+```
+
+To enable debug logs, specify the `debug=true` option:
+
+```bash
+java -javaagent:<path/to/jetty-alpn-agent.jar>=debug=true ...
 ```
 
 ## Using with Maven
