@@ -19,10 +19,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 final class JavaVersion {
-
-    private static final Pattern VERSION_PATTERN =
-            Pattern.compile("^([0-9]+)\\.([0-9]+)\\.([0-9]+)(?:_([0-9]+))?(?:-.+)?$");
-
+    private static final Pattern VERSION_PATTERN = Pattern.compile("^([0-9]+)\\.([0-9]+)\\.([0-9]+)(?:_([0-9]+))?(?:-.+)?$");
     private static final int major;
     private static final int minor;
     private static final int micro;
@@ -67,5 +64,6 @@ final class JavaVersion {
         return patch;
     }
 
-    private JavaVersion() {}
+    private JavaVersion() {
+    }
 }

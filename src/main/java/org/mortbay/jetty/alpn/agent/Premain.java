@@ -30,7 +30,6 @@ import java.util.jar.JarFile;
 import java.util.jar.JarInputStream;
 
 public final class Premain {
-
     private static final VersionMapping[] ALPN_MAPPINGS = {
             new VersionMapping("8.1.11.v20170118", 1, 8, 0, 121),
             new VersionMapping("8.1.10.v20161026", 1, 8, 0, 112),
@@ -47,19 +46,18 @@ public final class Premain {
             new VersionMapping("7.1.2.v20141202", 1, 7, 0, 71),
             new VersionMapping("7.1.0.v20141016", 1, 7, 0, 0),
     };
-
     private static final VersionMapping[] NPN_MAPPINGS = {
             new VersionMapping("1.1.11.v20150415", 1, 7, 0, 80),
             new VersionMapping("1.1.10.v20150130", 1, 7, 0, 75),
-            new VersionMapping("1.1.9.v20141016",  1, 7, 0, 71),
-            new VersionMapping("1.1.8.v20141013",  1, 7, 0, 55),
-            new VersionMapping("1.1.6.v20130911",  1, 7, 0, 40),
-            new VersionMapping("1.1.5.v20130313",  1, 7, 0, 15),
-            new VersionMapping("1.1.4.v20130313",  1, 7, 0, 13),
-            new VersionMapping("1.1.3.v20130313",  1, 7, 0, 9),
-            new VersionMapping("1.1.1.v20121030",  1, 7, 0, 6),
-            new VersionMapping("1.1.0.v20120525",  1, 7, 0, 4),
-            new VersionMapping("1.0.0.v20120402",  1, 7, 0, 0)
+            new VersionMapping("1.1.9.v20141016", 1, 7, 0, 71),
+            new VersionMapping("1.1.8.v20141013", 1, 7, 0, 55),
+            new VersionMapping("1.1.6.v20130911", 1, 7, 0, 40),
+            new VersionMapping("1.1.5.v20130313", 1, 7, 0, 15),
+            new VersionMapping("1.1.4.v20130313", 1, 7, 0, 13),
+            new VersionMapping("1.1.3.v20130313", 1, 7, 0, 9),
+            new VersionMapping("1.1.1.v20121030", 1, 7, 0, 6),
+            new VersionMapping("1.1.0.v20120525", 1, 7, 0, 4),
+            new VersionMapping("1.0.0.v20120402", 1, 7, 0, 0)
     };
 
     public static void premain(String args, Instrumentation inst) throws Exception {
@@ -77,9 +75,9 @@ public final class Premain {
         }
 
         // Find the matching alpn/npn-boot version.
-        final String javaVersion = System.getProperty("java.version", "");
         final String artifactVersion = findArtifactVersion(mappings);
         if (artifactVersion == null) {
+            final String javaVersion = System.getProperty("java.version", "");
             Util.log("Could not find a matching " + artifactName + " JAR for Java version: " + javaVersion);
             return;
         }
@@ -103,21 +101,17 @@ public final class Premain {
                 return m.artifactVersion();
             }
         }
-
         return null;
     }
 
-    private static void configureBootstrapClassLoaderSearch(
-            Instrumentation inst, URL artifactUrl,
-            String artifactName, String artifactVersion) throws IOException {
-
+    private static void configureBootstrapClassLoaderSearch(Instrumentation inst, URL artifactUrl, String artifactName, String artifactVersion) throws IOException {
         final File tmpFile = File.createTempFile(artifactName + '-' + artifactVersion + '.', ".jar");
         tmpFile.deleteOnExit();
 
         try (OutputStream out = new FileOutputStream(tmpFile)) {
             try (InputStream in = artifactUrl.openStream()) {
                 final byte[] buf = new byte[8192];
-                for (;;) {
+                while (true) {
                     final int readBytes = in.read(buf);
                     if (readBytes < 0) {
                         break;
@@ -130,13 +124,11 @@ public final class Premain {
         inst.appendToBootstrapClassLoaderSearch(new JarFile(tmpFile));
     }
 
-    private static void configureClassFileTransformer(
-            Instrumentation inst, URL artifactUrl) throws IOException {
-
+    private static void configureClassFileTransformer(Instrumentation inst, URL artifactUrl) throws IOException {
         final Map<String, byte[]> classes = new HashMap<>();
         try (JarInputStream jarIn = new JarInputStream(artifactUrl.openStream())) {
             final byte[] buf = new byte[8192];
-            for (;;) {
+            while (true) {
                 final JarEntry e = jarIn.getNextJarEntry();
                 if (e == null) {
                     break;
@@ -148,7 +140,7 @@ public final class Premain {
                 }
 
                 final ByteArrayOutputStream out = new ByteArrayOutputStream(8192);
-                for (;;) {
+                while (true) {
                     final int readBytes = jarIn.read(buf);
                     if (readBytes < 0) {
                         break;
@@ -160,9 +152,9 @@ public final class Premain {
                 classes.put(className, out.toByteArray());
             }
         }
-
         inst.addTransformer(new ReplacingClassFileTransformer(classes));
     }
 
-    private Premain() {}
+    private Premain() {
+    }
 }
