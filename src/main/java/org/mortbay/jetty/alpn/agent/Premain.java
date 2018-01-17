@@ -31,6 +31,7 @@ import java.util.jar.JarInputStream;
 
 public final class Premain {
     private static final VersionMapping[] ALPN_MAPPINGS = {
+            new VersionMapping("8.1.12.v20180117", 1, 8, 0, 161),
             new VersionMapping("8.1.11.v20170118", 1, 8, 0, 121),
             new VersionMapping("8.1.10.v20161026", 1, 8, 0, 112),
             new VersionMapping("8.1.9.v20160720", 1, 8, 0, 101),
