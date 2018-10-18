@@ -62,14 +62,14 @@
         <artifactId>maven-enforcer-plugin</artifactId>
         <executions>
           <execution>
-            <id>require-jdk8</id>
+            <id>require-jdk7</id>
             <goals>
               <goal>enforce</goal>
             </goals>
             <configuration>
               <rules>
                 <requireJavaVersion>
-                  <version>[1.8,)</version>
+                  <version>[1.7,)</version>
                 </requireJavaVersion>
               </rules>
             </configuration>
@@ -79,8 +79,8 @@
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
         <configuration>
-          <source>8</source>
-          <target>8</target>
+          <source>7</source>
+          <target>7</target>
         </configuration>
       </plugin>
       <plugin>
@@ -162,7 +162,7 @@
 
   <profiles>
     <profile>
-      <id>jdk9</id>
+      <id>jdk9+</id>
       <activation>
         <jdk>[1.9,)</jdk>
       </activation>
@@ -171,7 +171,7 @@
           <plugin>
             <artifactId>maven-compiler-plugin</artifactId>
             <configuration>
-              <release>8</release>
+              <release>7</release>
             </configuration>
           </plugin>
         </plugins>
