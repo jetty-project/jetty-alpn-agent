@@ -31,6 +31,7 @@ import java.util.jar.JarInputStream;
 
 public final class Premain {
     private static final VersionMapping[] ALPN_MAPPINGS = {
+            VersionMapping.LAST,
             new VersionMapping("8.1.13.v20181017", 1, 8, 0, 191),
             new VersionMapping("8.1.12.v20180117", 1, 8, 0, 161),
             new VersionMapping("8.1.11.v20170118", 1, 8, 0, 121),
@@ -78,16 +79,23 @@ public final class Premain {
         }
 
         // Find the matching alpn/npn-boot version.
-        final String artifactVersion = findArtifactVersion(mappings);
-        if (artifactVersion == null) {
-            final String javaVersion = System.getProperty("java.version", "");
-            Util.warn("Could not find a matching " + artifactName + " JAR for Java version: " + javaVersion);
+        String javaVersion = System.getProperty("java.version", "");
+        VersionMapping versionMapping = findVersionMapping(mappings);
+        if (versionMapping == null) {
+            Util.warn("Could not find a matching " + artifactName + " jar for Java version: " + javaVersion);
+            return;
+        }
+
+        if (versionMapping == VersionMapping.LAST) {
+            // No need for retransformation of classes.
+            Util.debug(artifactName + " not necessary for Java version: " + javaVersion);
             return;
         }
 
         // Find the URL of the alpn/npn-boot-<version>.jar file.
-        final String artifactFileName = artifactName + '-' + artifactVersion + ".jar";
-        final URL artifactUrl = Premain.class.getResource(artifactFileName);
+        String artifactVersion = versionMapping.artifactVersion();
+        String artifactFileName = artifactName + '-' + artifactVersion + ".jar";
+        URL artifactUrl = Premain.class.getResource(artifactFileName);
         if (artifactUrl == null) {
             Util.warn("Could not find a JAR file: " + artifactFileName);
             return;
@@ -98,24 +106,24 @@ public final class Premain {
         configureClassFileTransformer(inst, artifactUrl);
     }
 
-    private static String findArtifactVersion(VersionMapping[] mappings) {
+    private static VersionMapping findVersionMapping(VersionMapping[] mappings) {
         for (VersionMapping m : mappings) {
             if (m.matches()) {
-                return m.artifactVersion();
+                return m;
             }
         }
         return null;
     }
 
     private static void configureBootstrapClassLoaderSearch(Instrumentation inst, URL artifactUrl, String artifactName, String artifactVersion) throws IOException {
-        final File tmpFile = File.createTempFile(artifactName + '-' + artifactVersion + '.', ".jar");
+        File tmpFile = File.createTempFile(artifactName + '-' + artifactVersion + '.', ".jar");
         tmpFile.deleteOnExit();
 
         try (OutputStream out = new FileOutputStream(tmpFile)) {
             try (InputStream in = artifactUrl.openStream()) {
-                final byte[] buf = new byte[8192];
+                byte[] buf = new byte[8192];
                 while (true) {
-                    final int readBytes = in.read(buf);
+                    int readBytes = in.read(buf);
                     if (readBytes < 0) {
                         break;
                     }
@@ -128,30 +136,30 @@ public final class Premain {
     }
 
     private static void configureClassFileTransformer(Instrumentation inst, URL artifactUrl) throws IOException {
-        final Map<String, byte[]> classes = new HashMap<>();
+        Map<String, byte[]> classes = new HashMap<>();
         try (JarInputStream jarIn = new JarInputStream(artifactUrl.openStream())) {
-            final byte[] buf = new byte[8192];
+            byte[] buf = new byte[8192];
             while (true) {
-                final JarEntry e = jarIn.getNextJarEntry();
+                JarEntry e = jarIn.getNextJarEntry();
                 if (e == null) {
                     break;
                 }
 
-                final String entryName = e.getName();
+                String entryName = e.getName();
                 if (!entryName.endsWith(".class")) {
                     continue;
                 }
 
-                final ByteArrayOutputStream out = new ByteArrayOutputStream(8192);
+                ByteArrayOutputStream out = new ByteArrayOutputStream(8192);
                 while (true) {
-                    final int readBytes = jarIn.read(buf);
+                    int readBytes = jarIn.read(buf);
                     if (readBytes < 0) {
                         break;
                     }
                     out.write(buf, 0, readBytes);
                 }
 
-                final String className = entryName.substring(0, entryName.length() - 6);
+                String className = entryName.substring(0, entryName.length() - 6);
                 classes.put(className, out.toByteArray());
             }
         }
