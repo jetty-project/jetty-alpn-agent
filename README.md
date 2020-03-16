@@ -1,8 +1,22 @@
 # Jetty ALPN Agent
 
 `jetty-alpn-agent` is a JVM agent that enables TLS ALPN (or NPN) extension 
-support for Java 7 and 8 by loading the correct Jetty `alpn-boot` 
-(or `npn-boot`) JAR file for the current Java version. 
+support for Java 7 and 8 by transforming relevant Java classes using the 
+correct Jetty `alpn-boot` (or `npn-boot`) JAR file for the JVM version
+in use. 
+
+Starting with OpenJDK 1.8.0_252 the use of `jetty-alpn-agent` is not 
+strictly required anymore since the standard ALPN APIs have been 
+[backported](https://mail.openjdk.java.net/pipermail/jdk8u-dev/2019-November/010573.html)
+to OpenJDK 1.8.0_252 from Java 9.
+
+Using `jetty-alpn-agent` with OpenJDK 1.8.0_252 or later performs no
+class transformation; the `-javaagent` option can be left in the command
+line, but it is encouraged to remove it.
+ 
+Since no class transformation is performed with OpenJDK 1.8.0_252 or later,
+the libraries that provide the ALPN implementation must be aware of the
+backported standard API and use them to provide the ALPN implementation.
 
 ## Usage
 
