@@ -131,6 +131,7 @@
           <configuration>
             <mavenExecutorId>forked-path</mavenExecutorId>
             <useReleaseProfile>true</useReleaseProfile>
+            <releaseProfiles>sign-artifacts</releaseProfiles>
             <preparationGoals>clean install</preparationGoals>
             <goals>deploy</goals>
           </configuration>
@@ -173,7 +174,7 @@
       </build>
     </profile>
     <profile>
-      <id>release</id>
+      <id>sign-artifacts</id>
       <build>
         <plugins>
           <plugin>
