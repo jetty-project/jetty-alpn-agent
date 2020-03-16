@@ -19,17 +19,21 @@ final class Util {
     static boolean debug;
 
     static void warn(String message) {
-        log(message);
+        log("warn", message);
+    }
+
+    static void info(String message) {
+        log("info", message);
     }
 
     static void debug(String message) {
         if (debug) {
-            log(message);
+            log("debug", message);
         }
     }
 
-    private static void log(String message) {
-        System.err.println("[jetty-alpn-agent] " + message);
+    private static void log(String level, String message) {
+        System.err.printf("[jetty-alpn-agent][%5s] %s%n", level, message);
     }
 
     private Util() {

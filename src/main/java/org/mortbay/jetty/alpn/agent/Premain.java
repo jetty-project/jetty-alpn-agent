@@ -88,7 +88,7 @@ public final class Premain {
 
         if (versionMapping == VersionMapping.LAST) {
             // No need for retransformation of classes.
-            Util.debug(artifactName + " not necessary for Java version: " + javaVersion);
+            Util.info(artifactName + " not necessary for Java version: " + javaVersion);
             return;
         }
 
